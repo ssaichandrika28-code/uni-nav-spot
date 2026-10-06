@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_shell/events/")({
 function EventsPage() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<(typeof cats)[number]>("All");
-  const featured = events[0];
+  const featured = events[0]!;
   const list = events.filter((e) => (cat === "All" || e.category === cat) && (e.title + e.organizer + e.short).toLowerCase().includes(q.toLowerCase()));
   return (
     <div>

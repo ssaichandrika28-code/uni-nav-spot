@@ -12,9 +12,9 @@ const cats = ["All", "Faculty", "Rooms", "Clubs", "Events", "Notices", "Faciliti
 type Cat = (typeof cats)[number];
 
 export const Route = createFileRoute("/_shell/search")({
-  validateSearch: (s: Record<string, unknown>): { q?: string; cat?: string } => ({
-    q: typeof s.q === "string" ? s.q : undefined,
-    cat: typeof s.cat === "string" ? s.cat : undefined,
+  validateSearch: (s: Record<string, unknown>): { q?: string | undefined; cat?: string | undefined } => ({
+    q: typeof s["q"] === "string" ? s["q"] : undefined,
+    cat: typeof s["cat"] === "string" ? s["cat"] : undefined,
   }),
   head: pageHead("Search", "Search faculty, rooms, clubs, events, notices, facilities and opportunities across campus."),
   component: SearchPage,

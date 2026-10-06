@@ -22,7 +22,7 @@ function HomePage() {
   const { profile, followed } = useStore();
   const [greet, setGreet] = useState("Good morning");
   useEffect(() => { const h = new Date().getHours(); setGreet(h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening"); }, []);
-  const homeNotices = [notices[0], notices[1], notices[2]];
+  const homeNotices = notices.slice(0, 3);
   const myClubs = clubs.filter((c) => followed.has(c.id)).slice(0, 3);
 
   return (
@@ -44,7 +44,7 @@ function HomePage() {
         <SectionHeader title="Quick Access" />
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {quick.map(({ label, desc, icon: Icon, to, cat }) => (
-            <Link key={label} to={to} search={cat ? { cat } : undefined} className="surface surface-hover group flex flex-col gap-4 p-4 sm:p-5">
+            <Link key={label} to={to} search={cat ? { cat } : {}} className="surface surface-hover group flex flex-col gap-4 p-4 sm:p-5">
               <div className="grid h-10 w-10 place-items-center rounded-md bg-primary-soft text-primary"><Icon className="h-5 w-5" /></div>
               <div><p className="font-semibold">{label}</p><p className="text-sm text-muted-foreground">{desc}</p></div>
               <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
