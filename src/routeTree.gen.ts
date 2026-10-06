@@ -12,7 +12,16 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ShellFeedRouteImport } from './routes/_shell.feed'
 import { Route as ShellHomeRouteImport } from './routes/_shell.home'
+import { Route as ShellProfileRouteImport } from './routes/_shell.profile'
+import { Route as ShellSavedRouteImport } from './routes/_shell.saved'
+import { Route as ShellSearchRouteImport } from './routes/_shell.search'
+import { Route as ShellClubsIndexRouteImport } from './routes/_shell.clubs.index'
+import { Route as ShellClubsIdRouteImport } from './routes/_shell.clubs.$id'
+import { Route as ShellEventsIndexRouteImport } from './routes/_shell.events.index'
+import { Route as ShellEventsIdRouteImport } from './routes/_shell.events.$id'
+import { Route as ShellFacultyIdRouteImport } from './routes/_shell.faculty.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +37,145 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShellFeedRoute = ShellFeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => ShellRoute,
+} as any)
 const ShellHomeRoute = ShellHomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProfileRoute = ShellProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSavedRoute = ShellSavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSearchRoute = ShellSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellClubsIndexRoute = ShellClubsIndexRouteImport.update({
+  id: '/clubs/',
+  path: '/clubs/',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellClubsIdRoute = ShellClubsIdRouteImport.update({
+  id: '/clubs/$id',
+  path: '/clubs/$id',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellEventsIndexRoute = ShellEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellEventsIdRoute = ShellEventsIdRouteImport.update({
+  id: '/events/$id',
+  path: '/events/$id',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellFacultyIdRoute = ShellFacultyIdRouteImport.update({
+  id: '/faculty/$id',
+  path: '/faculty/$id',
   getParentRoute: () => ShellRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/feed': typeof ShellFeedRoute
   '/home': typeof ShellHomeRoute
+  '/profile': typeof ShellProfileRoute
+  '/saved': typeof ShellSavedRoute
+  '/search': typeof ShellSearchRoute
+  '/clubs/$id': typeof ShellClubsIdRoute
+  '/events/$id': typeof ShellEventsIdRoute
+  '/faculty/$id': typeof ShellFacultyIdRoute
+  '/clubs/': typeof ShellClubsIndexRoute
+  '/events/': typeof ShellEventsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/feed': typeof ShellFeedRoute
   '/home': typeof ShellHomeRoute
+  '/profile': typeof ShellProfileRoute
+  '/saved': typeof ShellSavedRoute
+  '/search': typeof ShellSearchRoute
+  '/clubs/$id': typeof ShellClubsIdRoute
+  '/events/$id': typeof ShellEventsIdRoute
+  '/faculty/$id': typeof ShellFacultyIdRoute
+  '/clubs': typeof ShellClubsIndexRoute
+  '/events': typeof ShellEventsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_shell': typeof ShellRouteWithChildren
   '/login': typeof LoginRoute
+  '/_shell/feed': typeof ShellFeedRoute
   '/_shell/home': typeof ShellHomeRoute
+  '/_shell/profile': typeof ShellProfileRoute
+  '/_shell/saved': typeof ShellSavedRoute
+  '/_shell/search': typeof ShellSearchRoute
+  '/_shell/clubs/$id': typeof ShellClubsIdRoute
+  '/_shell/events/$id': typeof ShellEventsIdRoute
+  '/_shell/faculty/$id': typeof ShellFacultyIdRoute
+  '/_shell/clubs/': typeof ShellClubsIndexRoute
+  '/_shell/events/': typeof ShellEventsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/home'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/feed'
+    | '/home'
+    | '/profile'
+    | '/saved'
+    | '/search'
+    | '/clubs/$id'
+    | '/events/$id'
+    | '/faculty/$id'
+    | '/clubs/'
+    | '/events/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/home'
-  id: '__root__' | '/' | '/_shell' | '/login' | '/_shell/home'
+  to:
+    | '/'
+    | '/login'
+    | '/feed'
+    | '/home'
+    | '/profile'
+    | '/saved'
+    | '/search'
+    | '/clubs/$id'
+    | '/events/$id'
+    | '/faculty/$id'
+    | '/clubs'
+    | '/events'
+  id:
+    | '__root__'
+    | '/'
+    | '/_shell'
+    | '/login'
+    | '/_shell/feed'
+    | '/_shell/home'
+    | '/_shell/profile'
+    | '/_shell/saved'
+    | '/_shell/search'
+    | '/_shell/clubs/$id'
+    | '/_shell/events/$id'
+    | '/_shell/faculty/$id'
+    | '/_shell/clubs/'
+    | '/_shell/events/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,6 +207,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_shell/feed': {
+      id: '/_shell/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof ShellFeedRouteImport
+      parentRoute: typeof ShellRoute
+    }
     '/_shell/home': {
       id: '/_shell/home'
       path: '/home'
@@ -95,15 +221,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellHomeRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/profile': {
+      id: '/_shell/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ShellProfileRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/saved': {
+      id: '/_shell/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof ShellSavedRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/search': {
+      id: '/_shell/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof ShellSearchRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/clubs/': {
+      id: '/_shell/clubs/'
+      path: '/clubs'
+      fullPath: '/clubs/'
+      preLoaderRoute: typeof ShellClubsIndexRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/clubs/$id': {
+      id: '/_shell/clubs/$id'
+      path: '/clubs/$id'
+      fullPath: '/clubs/$id'
+      preLoaderRoute: typeof ShellClubsIdRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/events/': {
+      id: '/_shell/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof ShellEventsIndexRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/events/$id': {
+      id: '/_shell/events/$id'
+      path: '/events/$id'
+      fullPath: '/events/$id'
+      preLoaderRoute: typeof ShellEventsIdRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/faculty/$id': {
+      id: '/_shell/faculty/$id'
+      path: '/faculty/$id'
+      fullPath: '/faculty/$id'
+      preLoaderRoute: typeof ShellFacultyIdRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
 interface ShellRouteChildren {
+  ShellFeedRoute: typeof ShellFeedRoute
   ShellHomeRoute: typeof ShellHomeRoute
+  ShellProfileRoute: typeof ShellProfileRoute
+  ShellSavedRoute: typeof ShellSavedRoute
+  ShellSearchRoute: typeof ShellSearchRoute
+  ShellClubsIdRoute: typeof ShellClubsIdRoute
+  ShellEventsIdRoute: typeof ShellEventsIdRoute
+  ShellFacultyIdRoute: typeof ShellFacultyIdRoute
+  ShellClubsIndexRoute: typeof ShellClubsIndexRoute
+  ShellEventsIndexRoute: typeof ShellEventsIndexRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
+  ShellFeedRoute: ShellFeedRoute,
   ShellHomeRoute: ShellHomeRoute,
+  ShellProfileRoute: ShellProfileRoute,
+  ShellSavedRoute: ShellSavedRoute,
+  ShellSearchRoute: ShellSearchRoute,
+  ShellClubsIdRoute: ShellClubsIdRoute,
+  ShellEventsIdRoute: ShellEventsIdRoute,
+  ShellFacultyIdRoute: ShellFacultyIdRoute,
+  ShellClubsIndexRoute: ShellClubsIndexRoute,
+  ShellEventsIndexRoute: ShellEventsIndexRoute,
 }
 
 const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
